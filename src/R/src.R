@@ -13,7 +13,7 @@ data = c(1, 1, 0, 1, 1, 1,
 sigma = matrix(data = data, nrow = 6, ncol = 6)
 
 
-main = function () {
+statisticsFirstTask = function () {
   randomVectorComponents = c()
   randomVectorComponents = countRandomVectorComponents()
   
@@ -21,14 +21,7 @@ main = function () {
     print(randomVectorComponents[j])
   }
   
-  #ddd = data.frame(A = c(R1, R4), B = c(R2, R5), C = c(R3, R6))
-  
-  # R5
-  #ddd[2, 2]; ddd$B[2]; ddd[[2]][2]; ddd[names(ddd) == "B", 2]
-  
-  # R6
-  #ddd[2, 3]; ddd$C[2]; ddd[[3]][2]
-  
+  saveToFile()
 }
 
 countExpectedValue = function (mu, sig, df = degreesOfFreedom, dr = dataRange) {
@@ -55,5 +48,9 @@ countRandomVectorComponents = function () {
   return (randomVectorElements)
 }
 
-main()
+saveToFile = function () {
+  write.table(randomVectorComponents, "../AMPL/data/randomVectorComponents.data", sep=" ", eol="\n", row.names = FALSE, col.names=FALSE)
+}
+
+statisticsFirstTask()
 
