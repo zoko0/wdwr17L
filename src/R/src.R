@@ -21,7 +21,7 @@ statisticsFirstTask = function () {
     print(randomVectorComponents[j])
   }
   
-  saveToFile()
+  saveToFile("../AMPL/data/randomVectorComponents.dat", randomVectorComponents)
 }
 
 countExpectedValue = function (mu, sig, df = degreesOfFreedom, dr = dataRange) {
@@ -48,8 +48,8 @@ countRandomVectorComponents = function () {
   return (randomVectorElements)
 }
 
-saveToFile = function () {
-  write.table(randomVectorComponents, "../AMPL/data/randomVectorComponents.data", sep=" ", eol="\n", row.names = FALSE, col.names=FALSE)
+saveToFile = function (pathToFile, datasetToSave) {
+  write.table(datasetToSave, pathToFile, sep=" ", eol="\n", row.names = FALSE, col.names=FALSE)
 }
 
 statisticsFirstTask()

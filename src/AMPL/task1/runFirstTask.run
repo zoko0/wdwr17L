@@ -1,0 +1,5 @@
+reset;
+model modelForFirstTask.mod
+data dataForFirstTask.dat
+
+solve;
