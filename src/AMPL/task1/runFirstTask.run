@@ -1,5 +1,12 @@
+
 reset;
-model modelForFirstTask.mod
-data dataForFirstTask.dat
+
+model modelForFirstTask.mod;
+data dataForFirstTask.dat;
 
 solve;
+
+display marketPrices;
+display months;
+display oils;
+display RESULT;
