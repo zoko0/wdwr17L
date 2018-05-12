@@ -6,7 +6,7 @@ data dataForFirstTask.dat;
 
 solve;
 
-display marketPrices;
+display v_oils_refining;
 display months;
-display oils;
+
 display RESULT;

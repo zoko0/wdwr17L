@@ -1,9 +1,15 @@
 data;
 
-set oilsTypes := A B C;
+set vege_oilsTypes := A B;
+set nonvege_oilsTypes := C;
+
 set months := STYCZEN LUTY;
 
-param marketPrices: A B C :=
-		STYCZEN 116 100 112
-		LUTY    100 1023 107;
+param vege_marketPrices: A B :=
+		STYCZEN 116 100
+		LUTY    100 103;
+
+param nonvege_marketPrices: C :=
+		STYCZEN 112
+		LUTY    107;
 
