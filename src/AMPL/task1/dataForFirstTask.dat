@@ -10,6 +10,8 @@ param max_nonvege_oil_refining = 270;
 param A_hardness = 8.4;
 param B_hardness = 6.2;
 param C_hardness = 2.0;
+param min_hardness = 3;
+param max_hardness = 6;
 
 set months := STYCZEN LUTY;
 

@@ -1,7 +1,6 @@
-
 reset;
-
 option solver minos;
+
 model modelForFirstTask.mod;
 data dataForFirstTask.dat;
 
@@ -9,6 +8,10 @@ solve;
 
 display v_oils_refining;
 display n_oils_refining;
+
+display A_is_used;
+display C_is_used;
+
 display production;
 
 display RESULT;
