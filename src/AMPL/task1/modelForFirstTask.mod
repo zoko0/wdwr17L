@@ -3,21 +3,63 @@ set months;
 set vege_oilsTypes;
 set nonvege_oilsTypes;
 
+param ready_oil_value;
+param max_vege_oil_refining;
+param max_nonvege_oil_refining;
+
+param A_hardness;
+param B_hardness;
+param C_hardness;
+
 param vege_marketPrices { months, vege_oilsTypes };
 param nonvege_marketPrices { months, nonvege_oilsTypes };
 
 var v_oils_refining { months, vege_oilsTypes } >= 0;
 var n_oils_refining { months, nonvege_oilsTypes } >= 0;
 
-var production {months} >= 0;
+#zmiennie binarne do ograniczenia if_oil_A_is_used_also_use_oil_C
+var A_is_used { months } >= 0, <= 1, integer;
+var C_is_used { months } >= 0, <= 1, integer;
 
- # w danym miesiacu mozna rafinowac maksymalnie 220 ton oleju roslinnego
+var vege_oil_proportion { vege_oilsTypes } >= 0;
+var nonvege_oil_proportion { nonvege_oilsTypes } >= 0;
+
+var production { months } >= 0;
+
+# w danym miesiacu mozna rafinowac maksymalnie 220 ton oleju roslinnego
 subject to max_refining_for_vegetable_oils {k in months}:
-	0 <= sum {i in vege_oilsTypes} v_oils_refining[k,i] <= 220;
+	0 <= sum {i in vege_oilsTypes} v_oils_refining[k,i] <= max_vege_oil_refining;
+
+# w danym miesiacu mozna rafinowac maksymalnie 270 ton oleju nieroslinnego
+subject to max_refining_for_nonvegetable_oils {k in months}:
+	0 <= sum {i in nonvege_oilsTypes} n_oils_refining[k,i] <= max_nonvege_oil_refining;
+
+#je¿eli w danym miesi¹cu u¿ywany jest olej A, to równie¿ musi zostaæ u¿yty olej C
+subject to if_oil_A_is_used_also_use_oil_C {k in months}:
+	A_is_used[k] = C_is_used[k];
+	
+	
+	
+#subject to oil_A_is_used {k in months}:
+#	vege_oil_propotion[k, 'A'] > 0, A_is_used = 1;
+		
+#ograniczenie na twardsc oleju
+#subject to hardness:
+#	8.4 * pr['R1'] + 6.2 * pr['R2'] + 2.0 * po['O1'] + 4.4 * po['O2'] + 5.1 * po['O3'] <= 3, <= 6;
+
+subject to sum_of_proportion_equals_1:
+	(sum { i in vege_oilsTypes } vege_oil_proportion[i] ) +
+	(sum { i in nonvege_oilsTypes } nonvege_oil_proportion[i] ) = 1;
+
+subject to vege_production { k in months, i in vege_oilsTypes }:
+	production[k] * vege_oil_proportion[i] <= v_oils_refining[k,i];
+
+subject to nonvege_production { k in months, i in nonvege_oilsTypes }:
+	production[k] * nonvege_oil_proportion[i] <= n_oils_refining[k,i];
 
 maximize RESULT:
-	(sum { k in months } production[k]) * 170 -
+	(sum { k in months } production[k]) * ready_oil_value -
 	(
-		(sum { k in months, i in vege_oilsTypes} vege_marketPrices[k, i] * v_oils_refining[k, i] ) +
+		(sum { k in months, i in vege_oilsTypes } vege_marketPrices[k, i] * v_oils_refining[k, i] ) +
 		(sum { k in months, i in nonvege_oilsTypes} nonvege_marketPrices[k, i] * n_oils_refining[k, i] )
 	);
