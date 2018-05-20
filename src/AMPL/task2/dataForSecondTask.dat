@@ -1,0 +1,26 @@
+data;
+
+set vege_oilsTypes := A B;
+set nonvege_oilsTypes := C;
+
+param ready_oil_value = 170;
+param max_vege_oil_refining = 220;
+param max_nonvege_oil_refining = 270;
+
+param storing_oil_cost = 10;
+
+param A_hardness = 8.4;
+param B_hardness = 6.2;
+param C_hardness = 2.0;
+param min_hardness = 3;
+param max_hardness = 6;
+
+set months := STYCZEN LUTY;
+
+param vege_marketPrices: A B :=
+		STYCZEN 116 100
+		LUTY    100 103;
+
+param nonvege_marketPrices: C :=
+		STYCZEN 112
+		LUTY    107;

@@ -1,0 +1,21 @@
+reset;
+option solver minos;
+
+model modelForFirstTask.mod;
+data dataForFirstTask.dat;
+
+#run test model and test dat
+#model modelForFirstTask_test.mod;
+#data dataForFirstTask_test.dat;
+
+solve;
+
+display v_oils_refining;
+display n_oils_refining;
+
+display vege_refined_and_stored_oils;
+display nonvege_refined_and_stored_oils;
+
+display production;
+
+display RESULT;
